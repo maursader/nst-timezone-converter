@@ -335,6 +335,8 @@ try {
     console.warn('Extension context invalid during initialization');
   } else {
     updateTimeDisplay();
+    // Add a slight delay before first color check to ensure elements are created
+    setTimeout(updateResetTimeColor, 1000);
   }
 } catch (error) {
   console.warn('Error during initial update:', error.message);
@@ -350,6 +352,41 @@ if (isExtensionContextValid) {
   // Just perform the update once, without an interval
   updateTimeDisplay();
 }
+
+// Function to update the color of time displays based on proximity to reset
+function updateResetTimeColor() {
+  if (!isExtensionContextValid || !userTimezone) return;
+  
+  // Check if we're close to reset
+  const resetSoon = isCloseToReset();
+  const textColor = resetSoon ? '#FF0000' : 'inherit';
+  
+  // Update the permanent elements we created
+  const classicTimeElement = document.querySelector('.timezone-converter-permanent-classic');
+  const modernTimeElement = document.querySelector('.timezone-converter-permanent');
+  
+  // Update colors of classic layout time display
+  if (classicTimeElement) {
+    const spans = classicTimeElement.querySelectorAll('span');
+    spans.forEach(span => {
+      span.style.color = textColor;
+    });
+  }
+  
+  // Update colors of modern layout time display
+  if (modernTimeElement) {
+    const spans = modernTimeElement.querySelectorAll('span');
+    spans.forEach(span => {
+      span.style.color = textColor;
+    });
+  }
+}
+
+// Start an interval to check and update the color regularly
+setInterval(updateResetTimeColor, 60000); // Check every minute
+
+// Initial color check
+updateResetTimeColor();
 
 // Set up a MutationObserver to monitor for changes in the NST elements
 // This handles cases where the site updates the NST elements dynamically
