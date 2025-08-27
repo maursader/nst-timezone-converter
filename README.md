@@ -14,7 +14,7 @@ A Chrome extension that converts Neopets Standard Time (NST) to your preferred t
 ## Installation
 
 ### From Chrome Web Store (Coming Soon)
-1. Visit the Chrome Web Store page (link TBD)
+1. Visit the Chrome Web Store page [(by CLICKING HERE)](https://chromewebstore.google.com/detail/neopets-timezone-converte/cnbekphdnhnnodgcinlckfnapmefiede)
 2. Click "Add to Chrome"
 3. Confirm the installation
 
